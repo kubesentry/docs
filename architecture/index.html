@@ -713,7 +713,7 @@
 </code></pre></div>
 <ul>
 <li>A purchase in <strong>Lemon Squeezy</strong> fires a signed webhook to a <strong>Cloudflare Worker</strong> (the license server).</li>
-<li>The Worker verifies the webhook signature, then <strong>mints an Ed25519-signed license token</strong> encoding the plan and expiry.</li>
+<li>The Worker verifies the webhook signature, then <strong>mints an Ed25519-signed license token</strong> encoding the plan. Licenses are perpetual — there's no expiry to encode.</li>
 <li>The token is <strong>emailed</strong> to the customer via Resend.</li>
 <li>The customer applies it with <code>helm upgrade</code>. The <strong>collector validates it offline</strong> using the public key compiled into the binary — no runtime dependency on the license server.</li>
 </ul>
