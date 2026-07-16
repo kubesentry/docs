@@ -724,6 +724,7 @@
 <tr>
 <th>Plan</th>
 <th>Price (one-time)</th>
+<th>Licensed for</th>
 <th>Best for</th>
 </tr>
 </thead>
@@ -731,21 +732,34 @@
 <tr>
 <td>Solo</td>
 <td>€99</td>
+<td>1 cluster</td>
 <td>Individuals / very small clusters</td>
 </tr>
 <tr>
 <td>Team</td>
 <td>€299</td>
+<td>5 clusters</td>
 <td>Small teams</td>
 </tr>
 <tr>
 <td>Pro</td>
 <td>€499</td>
+<td>Unlimited</td>
 <td>Larger deployments</td>
 </tr>
 </tbody>
 </table>
 <p>All plans are one-time. Your license is <strong>perpetual</strong> and includes <strong>all future updates</strong> — no subscription, no renewals.</p>
+<div class="admonition info">
+<p class="admonition-title">Cluster counts are licence terms, not technical limits</p>
+<p>The collector does <strong>not</strong> enforce the cluster count. It's carried in the license as a
+<code>clusters</code> claim and printed in the startup log, but nothing checks it — a Solo license
+works in as many clusters as you paste it into.</p>
+<p>This is deliberate. Enforcing a count means every install has to report back to a server
+we control, which is precisely the phone-home and telemetry KubeSentry promises never to
+do. We'd rather keep that promise and trust you to buy the tier that matches your usage.
+The collector is <a href="https://github.com/kubesentry">open to read</a> if you want to confirm it.</p>
+</div>
 <p>Purchase from the <a href="https://kubesentry.io">KubeSentry site</a>. Checkout is handled through Lemon Squeezy; your license is emailed to you automatically right after purchase.</p>
 <h2 id="activate-your-license">Activate your license<a class="headerlink" href="#activate-your-license" title="Permanent link">&para;</a></h2>
 <p>Your license arrives by email as a token string. Apply it as the <code>license</code> Helm value and upgrade:</p>
