@@ -535,17 +535,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#renewing-updates" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Renewing updates
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#lost-your-license" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -689,17 +678,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#renewing-updates" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Renewing updates
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#lost-your-license" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -739,7 +717,7 @@
 <p>KubeSentry uses <strong>fully offline licensing</strong>. Your license is a signed token that the collector verifies in-cluster using a built-in public key. There's no phone-home, no license server your cluster talks to, and no telemetry — activation works in air-gapped environments.</p>
 <h2 id="trial">Trial<a class="headerlink" href="#trial" title="Permanent link">&para;</a></h2>
 <p>Every fresh install starts in a <strong>7-day trial</strong> with full functionality. You'll see a yellow banner in the dashboard for the duration. The trial state is tracked inside the cluster on the collector's data volume, so restarts don't reset or extend it.</p>
-<p>When the trial ends, activate a license to keep the banner off and continue receiving updates.</p>
+<p>When the trial ends, activate a license to keep the banner off.</p>
 <h2 id="plans">Plans<a class="headerlink" href="#plans" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -752,22 +730,22 @@
 <tbody>
 <tr>
 <td>Solo</td>
-<td>$99</td>
+<td>€99</td>
 <td>Individuals / very small clusters</td>
 </tr>
 <tr>
 <td>Team</td>
-<td>$299</td>
+<td>€299</td>
 <td>Small teams</td>
 </tr>
 <tr>
 <td>Pro</td>
-<td>$499</td>
+<td>€499</td>
 <td>Larger deployments</td>
 </tr>
 </tbody>
 </table>
-<p>Each plan includes <strong>12 months of updates</strong>. After that, updates continue for <strong>$49/year</strong> — your existing install keeps running either way; renewal only affects access to new versions.</p>
+<p>All plans are one-time. Your license is <strong>perpetual</strong> and includes <strong>all future updates</strong> — no subscription, no renewals.</p>
 <p>Purchase from the <a href="https://kubesentry.io">KubeSentry site</a>. Checkout is handled through Lemon Squeezy; your license is emailed to you automatically right after purchase.</p>
 <h2 id="activate-your-license">Activate your license<a class="headerlink" href="#activate-your-license" title="Permanent link">&para;</a></h2>
 <p>Your license arrives by email as a token string. Apply it as the <code>license</code> Helm value and upgrade:</p>
@@ -785,9 +763,7 @@
 </div>
 <p>After the upgrade rolls, reload the dashboard — the trial banner disappears and your plan is shown. Any alerts collected during the trial are preserved.</p>
 <h2 id="how-verification-works">How verification works<a class="headerlink" href="#how-verification-works" title="Permanent link">&para;</a></h2>
-<p>Licenses are signed with an <strong>Ed25519</strong> key. The matching public key is compiled into the collector, so it can validate a license entirely offline — it checks the signature and the embedded plan and expiry without contacting anything. If a token is missing, malformed, or its signature doesn't verify, KubeSentry falls back to trial/expired-trial behavior rather than failing shut.</p>
-<h2 id="renewing-updates">Renewing updates<a class="headerlink" href="#renewing-updates" title="Permanent link">&para;</a></h2>
-<p>When your 12 months of included updates lapse, renew for $49/year from the same account. Renewal issues a fresh token; apply it the same way as the initial activation.</p>
+<p>Licenses are signed with an <strong>Ed25519</strong> key. The matching public key is compiled into the collector, so it can validate a license entirely offline — it checks the signature and the embedded plan without contacting anything. There is no date check: a validly-signed license never expires, on any version. Only the 7-day trial is time-bound. If a token is missing, malformed, or its signature doesn't verify, KubeSentry falls back to trial/expired-trial behavior rather than failing shut.</p>
 <h2 id="lost-your-license">Lost your license?<a class="headerlink" href="#lost-your-license" title="Permanent link">&para;</a></h2>
 <p>Licenses are tied to your purchase email. Retrieve it from your Lemon Squeezy order confirmation, or contact support (see the <a href="https://kubesentry.io">KubeSentry site</a>) with your order details.</p>
 
