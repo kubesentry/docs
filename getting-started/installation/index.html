@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -411,6 +411,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported clusters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -655,6 +672,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported clusters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -741,11 +775,21 @@
 <p>KubeSentry installs with a single Helm chart. The chart deploys Falco as a DaemonSet (one pod per node) and the KubeSentry collector as a Deployment.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
-<li>A Kubernetes cluster (v1.24+ recommended)</li>
+<li>A <strong>standard</strong> Kubernetes cluster (v1.24+ recommended) whose nodes allow privileged pods and hostPath mounts</li>
 <li><a href="https://helm.sh">Helm</a> 3.8 or newer</li>
 <li>Nodes running a Linux kernel Falco supports — the chart uses Falco's <code>modern_ebpf</code> driver by default, which works on modern kernels</li>
 <li>A namespace you're comfortable running privileged detection in (Falco needs privileged access to read kernel events)</li>
 </ul>
+<h3 id="supported-clusters">Supported clusters<a class="headerlink" href="#supported-clusters" title="Permanent link">&para;</a></h3>
+<p>KubeSentry detects threats by reading kernel events, so Falco runs as a privileged DaemonSet with host mounts (the container runtime socket, <code>/proc</code>, <code>/etc</code>). Any cluster that permits that will work:</p>
+<ul>
+<li>Self-managed and kubeadm clusters</li>
+<li>k3s</li>
+<li>GKE <strong>Standard</strong></li>
+<li>EKS, and AKS with default node pools</li>
+<li>kind and minikube (great for evaluating)</li>
+</ul>
+<p><strong>Not supported:</strong> GKE <strong>Autopilot</strong>, and other managed or hardened environments that block privileged containers and host mounts — including restrictive PodSecurity or Pod Security Admission policies. These platforms deny kernel-level access by design, and it isn't something the chart can configure around. If you're on Autopilot, run KubeSentry on a Standard cluster or a node pool that permits privileged workloads.</p>
 <h2 id="add-the-helm-repository">Add the Helm repository<a class="headerlink" href="#add-the-helm-repository" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>kubesentry<span class="w"> </span>https://charts.kubesentry.io
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>helm<span class="w"> </span>repo<span class="w"> </span>update
@@ -868,7 +912,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top", "content.code.copy", "content.action.edit", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
