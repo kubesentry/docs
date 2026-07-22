@@ -844,20 +844,25 @@
 <h2 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">&para;</a></h2>
 <p>KubeSentry sends <strong>instant email on high-severity alerts</strong> (Critical/Emergency/Alert) and a <strong>daily digest</strong> of activity. It can also POST alerts to Slack, Discord, or Microsoft Teams webhooks. Every channel is off by default and enabled independently.</p>
 <h3 id="email">Email<a class="headerlink" href="#email" title="Permanent link">&para;</a></h3>
-<p>Email is delivered through <a href="https://resend.com">Resend</a>. You need a Resend API key; <code>to</code> is a list.</p>
-<p>The default <code>from</code> is <code>onboarding@resend.dev</code>, Resend's shared sandbox sender — it works with any API key without verifying a domain, so email works immediately. The sandbox only delivers to the address that owns your Resend account, so use it to confirm the pipeline, then switch to your own verified domain for real delivery.</p>
+<p>Email is delivered through <a href="https://resend.com">Resend</a>. Because KubeSentry is self-hosted, it sends through <strong>your own</strong> Resend account — there is no default sender. Enabling email requires two things you provide:</p>
+<ol>
+<li>A <strong>Resend API key</strong> (<code>resendApiKey</code> for testing, or <code>existingSecret</code> in production).</li>
+<li>A <strong><code>from</code> address on a domain you have verified</strong> in that same Resend account (<a href="https://resend.com/domains">resend.com/domains</a>). Resend only accepts mail from domains you control, so no shared or default address will work for delivery to your team.</li>
+</ol>
+<p><code>to</code> is a list.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">notifications</span><span class="p">:</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">email</span><span class="p">:</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alerts@your-domain.com&quot;</span><span class="w">   </span><span class="c1"># a sender on a domain you&#39;ve verified in Resend</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alerts@yourdomain.com&quot;</span><span class="w">    </span><span class="c1"># an address on a domain YOU verified in Resend</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">to</span><span class="p">:</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;you@your-team.com&quot;</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;security@your-team.com&quot;</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nt">resendApiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;re_xxxxxxxx&quot;</span><span class="w">      </span><span class="c1"># testing only — prefer existingSecret in production</span>
 </code></pre></div>
+<p>If <code>enabled: true</code> but <code>from</code> (or a credential) is blank, the install still succeeds — detection and the dashboard always run — but no email is sent. The collector logs a loud warning at startup saying exactly what's missing, so check the collector logs if alerts aren't arriving.</p>
 <div class="admonition warning">
 <p class="admonition-title">403 from Resend</p>
-<p>A <code>resend returned 403</code> error in the collector logs means the <code>from</code> domain isn't verified on your Resend account. Set <code>from</code> to the sandbox sender (<code>onboarding@resend.dev</code>) or to an address on a domain you've verified in Resend — never a domain you don't control.</p>
+<p>A <code>resend returned 403</code> error in the collector logs means the <code>from</code> domain isn't verified on your Resend account. Verify the domain at <a href="https://resend.com/domains">resend.com/domains</a> and set <code>from</code> to an address on it — never a domain you don't control.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Keep secrets out of values.yaml</p>
@@ -865,7 +870,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">notifications</span><span class="p">:</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">email</span><span class="p">:</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alerts@your-domain.com&quot;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alerts@yourdomain.com&quot;</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">to</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;you@your-team.com&quot;</span><span class="p p-Indicator">]</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">existingSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;kubesentry-email&quot;</span><span class="w">   </span><span class="c1"># Secret with key: resend-api-key</span>
 </code></pre></div>
