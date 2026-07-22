@@ -799,9 +799,9 @@
 </code></pre></div>
 <p>You'll see the chart listed as <code>kubesentry/kubesentry</code>.</p>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Install with the release name <code>kubesentry</code></p>
-<p>Use <code>kubesentry</code> as the release name exactly as shown. Falco is configured to POST events to a fixed Service address (<code>kubesentry-collector</code>), so a different release name leaves Falco unable to reach the collector and no alerts arrive. If you must use another name, set <code>--set fullnameOverride=kubesentry</code> to keep the collector Service name aligned.</p>
+<div class="admonition note">
+<p class="admonition-title">Any release name works</p>
+<p>The collector's Service name is pinned to <code>kubesentry-collector</code> (the chart sets <code>fullnameOverride: kubesentry</code>), so Falco can always reach the collector no matter what you name the release. These examples use <code>kubesentry</code>. Only override <code>fullnameOverride</code> if you need to run two installs in one namespace — then also point <code>falco.falcosidekick.config.webhook.address</code> at your collector Service.</p>
 </div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>helm<span class="w"> </span>install<span class="w"> </span>kubesentry<span class="w"> </span>kubesentry/kubesentry<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>--namespace<span class="w"> </span>kubesentry<span class="w"> </span><span class="se">\</span>
