@@ -1063,15 +1063,8 @@ and shell-profile modification among them. See
 <p>22 rules — all 11 KubeSentry rules, the 3 overrides, and 8 more Falco
 detections — carry a guidance entry: a plain-English explanation, ordered triage
 steps, concrete remediation commands, and a MITRE ATT&amp;CK reference. It shows in
-the dashboard and travels with the alert into email, Slack, Discord, and generic
-webhooks.</p>
-<div class="admonition note">
-<p class="admonition-title">Teams cards omit remediation</p>
-<p>The Microsoft Teams payload carries the alert fields and raw Falco output but
-not the fix steps. Use the dashboard for those, or route Teams through a
-<a href="../configuration/#microsoft-teams-two-things-to-know">generic webhook</a> to get
-the complete alert.</p>
-</div>
+the dashboard and travels with the alert into every notification channel — email,
+Slack, Discord, Teams, and generic webhooks.</p>
 <h2 id="adding-your-own-rules">Adding your own rules<a class="headerlink" href="#adding-your-own-rules" title="Permanent link">&para;</a></h2>
 <p>The curated set is a starting point, not a ceiling. Add your own Falco rules
 through the <code>falco</code> values block — see

@@ -564,17 +564,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#microsoft-teams-two-things-to-know" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Microsoft Teams — two things to know
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#wiring-a-channel-from-the-cli" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -828,17 +817,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#microsoft-teams-two-things-to-know" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Microsoft Teams — two things to know
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#wiring-a-channel-from-the-cli" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1055,24 +1033,19 @@ token) or terminate the request behind a proxy that adds the header.</p>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">webhookUrl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://my-system.example.com/kubesentry&quot;</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="c1"># or: existingSecret: &quot;kubesentry-generic&quot;   # key: generic-webhook-url</span>
 </code></pre></div>
-<h3 id="microsoft-teams-two-things-to-know">Microsoft Teams — two things to know<a class="headerlink" href="#microsoft-teams-two-things-to-know" title="Permanent link">&para;</a></h3>
-<p>Teams works, and it's enabled the same way as the others. Two caveats worth
-knowing before you pick it as your main channel.</p>
-<p><strong>1. Teams cards don't carry the remediation steps.</strong> Every other channel
-includes the triage and fix guidance attached to the rule; the Teams card carries
-the rule, severity, workload fields, and the raw Falco output, but stops there.
-You'll get the alert and know where it happened — you'll go to the dashboard for
-what to run.</p>
-<p><strong>2. Microsoft is retiring the webhook type KubeSentry posts to.</strong> KubeSentry
-sends a <strong>MessageCard</strong>, the format Office 365 incoming webhook connectors
-accept. Microsoft is replacing those connectors with Power Automate
-<strong>Workflows</strong>, whose URLs expect a different payload — a MessageCard sent to a
-Workflows URL won't render as a card unless the flow is built to parse one.</p>
-<p>If either matters to you, the <a href="#generic-webhook">generic webhook</a> is the better
-route into Teams: point it at a Workflow you author yourself and you get the
-<strong>complete</strong> alert as JSON, remediation included, in whatever card format you
-want. It also sidesteps the connector deprecation entirely, since you own both
-ends.</p>
+<div class="admonition warning">
+<p class="admonition-title">Microsoft Teams: check which webhook URL you have</p>
+<p>KubeSentry posts a <strong>MessageCard</strong>, the format Office 365 incoming webhook
+connectors accept. Microsoft is replacing those connectors with Power
+Automate <strong>Workflows</strong>, whose URLs expect a different payload — a MessageCard
+sent to a Workflows URL won't render as a card unless the flow is built to
+parse one. This is a connectivity question, not a capability one: on a
+classic connector URL, Teams gets the same alert content as every other
+channel, remediation included.</p>
+<p>If your tenant has already retired classic connectors, point a
+<a href="#generic-webhook">generic webhook</a> at a Workflow you author yourself. You
+get the complete alert as JSON and full control over the card format.</p>
+</div>
 <h3 id="wiring-a-channel-from-the-cli">Wiring a channel from the CLI<a class="headerlink" href="#wiring-a-channel-from-the-cli" title="Permanent link">&para;</a></h3>
 <p>If you'd rather not put credentials in a values file at all, create the Secret
 yourself and point the chart at it. Reading the value with <code>read -rs</code> keeps it
