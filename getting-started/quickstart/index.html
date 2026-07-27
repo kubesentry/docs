@@ -16,7 +16,7 @@
         <link rel="prev" href="../installation/">
       
       
-        <link rel="next" href="../../configuration/">
+        <link rel="next" href="../verify/">
       
       
         
@@ -494,9 +494,64 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verify/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verify your installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../detections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What KubeSentry detects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -727,14 +782,20 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>-n<span class="w"> </span>&lt;some-namespace&gt;<span class="w"> </span>&lt;some-pod&gt;<span class="w"> </span>--<span class="w"> </span>/bin/sh
 </code></pre></div>
 <p>Type a command or two, then exit. Falco sees the shell being spawned in a container and emits an event.</p>
+<div class="admonition note">
+<p class="admonition-title">The <code>-it</code> matters</p>
+<p>The terminal-shell rule requires an attached TTY. <code>kubectl exec &lt;pod&gt; -- &lt;cmd&gt;</code> without <code>-it</code> won't fire it — that's how most tooling execs, so flagging it would be pure noise.</p>
+</div>
 <h2 id="3-watch-it-land">3. Watch it land<a class="headerlink" href="#3-watch-it-land" title="Permanent link">&para;</a></h2>
 <p>Within about <strong>5 seconds</strong>, the alert appears in the dashboard feed: the rule that fired, the pod and namespace, the process, and a severity. The path it took:</p>
 <blockquote>
 <p>Falco (on the node) → Falcosidekick → collector → dashboard</p>
 </blockquote>
-<p>If you configured email, a high-severity alert also arrives in your inbox almost immediately. Lower-severity events are rolled into the <a href="../../configuration/#daily-digest">daily digest</a>.</p>
+<p>This one lands at <strong>Warning</strong> severity, so it shows on the dashboard and in the <a href="../../configuration/#daily-digest">daily digest</a> but doesn't page you — instant notifications are reserved for <strong>Critical</strong> alerts. To prove your email or Slack wiring end to end, use the Critical trigger in <a href="../verify/#6-test-your-notification-channels">Verify your installation</a>.</p>
 <h2 id="4-what-to-do-next">4. What to do next<a class="headerlink" href="#4-what-to-do-next" title="Permanent link">&para;</a></h2>
 <ul>
+<li><strong>Prove the whole path works</strong> — a repeatable check with a throwaway pod, including what fires and what deliberately doesn't. See <a href="../verify/">Verify your installation</a>.</li>
+<li><strong>See what's detected</strong> — the full curated ruleset with severities and triggers. See <a href="../../detections/">What KubeSentry detects</a>.</li>
 <li><strong>Set up notifications</strong> — wire in email and webhooks so you hear about alerts without watching the dashboard. See <a href="../../configuration/#notifications">Notifications</a>.</li>
 <li><strong>Activate your license</strong> — remove the trial banner and unlock ongoing updates. See <a href="../../licensing/">Licensing</a>.</li>
 <li><strong>Tune noise</strong> — every environment has benign patterns that trip default rules. See <a href="../../configuration/">Configuration</a> for how to adjust.</li>

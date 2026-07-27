@@ -390,9 +390,64 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/verify/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verify your installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../detections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What KubeSentry detects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -692,7 +747,7 @@
 <li><strong>Falcosidekick</strong> receives Falco's output and forwards it over HTTP to the collector. The chart pins the Falcosidekick Service name and the Falco output URL so the two agree regardless of quirks in name generation — Falco posts to <code>kubesentry-falcosidekick</code>, which forwards to <code>kubesentry-collector</code>. (This is also why you install with the release name <code>kubesentry</code>: the collector Service must resolve to that fixed name.)</li>
 <li><strong>The collector</strong> is the heart of KubeSentry: it aggregates and deduplicates incoming events, persists them to an embedded SQLite database on a PersistentVolume, serves the live dashboard, and drives notifications.</li>
 <li><strong>The dashboard</strong> shows alerts within a few seconds of the underlying event.</li>
-<li><strong>The notifier</strong> sends instant email on high-severity alerts and a daily digest of the rest, plus optional Slack/Discord/Teams webhooks.</li>
+<li><strong>The notifier</strong> fans every Critical alert out to the channels you've enabled — email, Slack, Discord, Teams, or a generic webhook of your own — and emails a daily digest of everything else.</li>
 </ul>
 <p>Alert data never leaves the cluster unless <em>you</em> configure email/webhook egress.</p>
 <h2 id="license-flow">License flow<a class="headerlink" href="#license-flow" title="Permanent link">&para;</a></h2>

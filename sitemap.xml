@@ -2,30 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.kubesentry.io/</loc>
-         <lastmod>2026-07-22</lastmod>
+         <lastmod>2026-07-27</lastmod>
     </url>
     <url>
          <loc>https://docs.kubesentry.io/architecture/</loc>
-         <lastmod>2026-07-22</lastmod>
+         <lastmod>2026-07-27</lastmod>
     </url>
     <url>
          <loc>https://docs.kubesentry.io/configuration/</loc>
-         <lastmod>2026-07-22</lastmod>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.kubesentry.io/detections/</loc>
+         <lastmod>2026-07-27</lastmod>
     </url>
     <url>
          <loc>https://docs.kubesentry.io/licensing/</loc>
-         <lastmod>2026-07-22</lastmod>
+         <lastmod>2026-07-27</lastmod>
     </url>
     <url>
          <loc>https://docs.kubesentry.io/troubleshooting/</loc>
-         <lastmod>2026-07-22</lastmod>
+         <lastmod>2026-07-27</lastmod>
     </url>
     <url>
          <loc>https://docs.kubesentry.io/getting-started/installation/</loc>
-         <lastmod>2026-07-22</lastmod>
+         <lastmod>2026-07-27</lastmod>
     </url>
     <url>
          <loc>https://docs.kubesentry.io/getting-started/quickstart/</loc>
-         <lastmod>2026-07-22</lastmod>
+         <lastmod>2026-07-27</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.kubesentry.io/getting-started/verify/</loc>
+         <lastmod>2026-07-27</lastmod>
     </url>
 </urlset>

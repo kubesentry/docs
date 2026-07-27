@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://docs.kubesentry.io/configuration/">
       
       
-        <link rel="prev" href="../getting-started/quickstart/">
+        <link rel="prev" href="../detections/">
       
       
         <link rel="next" href="../licensing/">
@@ -390,9 +390,64 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/verify/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verify your installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../detections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What KubeSentry detects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -491,6 +546,39 @@
     <span class="md-ellipsis">
       
         Slack / Discord / Teams
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generic-webhook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generic webhook
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microsoft-teams-two-things-to-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Microsoft Teams — two things to know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wiring-a-channel-from-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wiring a channel from the CLI
       
     </span>
   </a>
@@ -728,6 +816,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#generic-webhook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generic webhook
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microsoft-teams-two-things-to-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Microsoft Teams — two things to know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wiring-a-channel-from-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wiring a channel from the CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -842,7 +963,13 @@
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>-f<span class="w"> </span>values.yaml
 </code></pre></div>
 <h2 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">&para;</a></h2>
-<p>KubeSentry sends <strong>instant email on high-severity alerts</strong> (Critical/Emergency/Alert) and a <strong>daily digest</strong> of activity. It can also POST alerts to Slack, Discord, or Microsoft Teams webhooks. Every channel is off by default and enabled independently.</p>
+<p>KubeSentry notifies you two ways:</p>
+<ul>
+<li><strong>Instant</strong> — a new <strong>Critical</strong> alert (Falco <code>CRITICAL</code>, <code>EMERGENCY</code>, or <code>ALERT</code>) fires <em>every</em> channel you've configured, in parallel, within seconds.</li>
+<li><strong>Daily digest</strong> — a 24-hour rollup, <strong>email only</strong>.</li>
+</ul>
+<p>High and Warning alerts land on the dashboard and in the digest but never page you. See <a href="../detections/#how-severity-works">how severity works</a> for the full mapping, and <a href="../getting-started/verify/#6-test-your-notification-channels">Verify your installation</a> for a Critical trigger you can use to test delivery.</p>
+<p>Every channel is off by default and enabled independently. Delivery failures are logged and never block an alert from being stored.</p>
 <h3 id="email">Email<a class="headerlink" href="#email" title="Permanent link">&para;</a></h3>
 <p>Email is delivered through <a href="https://resend.com">Resend</a>. Because KubeSentry is self-hosted, it sends through <strong>your own</strong> Resend account — there is no default sender. Enabling email requires two things you provide:</p>
 <ol>
@@ -889,49 +1016,168 @@
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="nt">webhookUrl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
 </code></pre></div>
+<h3 id="generic-webhook">Generic webhook<a class="headerlink" href="#generic-webhook" title="Permanent link">&para;</a></h3>
+<p>Any HTTP endpoint of your own — a SIEM, a ticketing system, an internal handler.
+Instead of a chat-platform card, it receives the <strong>full alert as raw KubeSentry
+JSON</strong>, including the remediation advice:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kubesentry.alert&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-07-27T13:55:11Z&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">&quot;cluster&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;prod-us-east&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="nt">&quot;alert&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nt">&quot;rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KubeSentry: Sudoers or passwd modified in container&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="nt">&quot;priority&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Critical&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="nt">&quot;pod&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;payments-api-7d8f&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="nt">&quot;namespace&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;prod&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="nt">&quot;container&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;payments-api&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ghcr.io/acme/payments-api&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="nt">&quot;output&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;13:55:11.144843182: Critical Sensitive auth file opened for writing …&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="nt">&quot;first_seen&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-07-27T13:55:11Z&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="nt">&quot;last_seen&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-07-27T13:55:11Z&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="nt">&quot;advice&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">      </span><span class="nt">&quot;what&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A process opened /etc/passwd, /etc/shadow, or /etc/sudoers for writing …&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">      </span><span class="nt">&quot;triage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;…&quot;</span><span class="p">],</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">      </span><span class="nt">&quot;remediation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;…&quot;</span><span class="p">],</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">      </span><span class="nt">&quot;references&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;https://attack.mitre.org/techniques/T1136/&quot;</span><span class="p">]</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="p">}</span>
+</code></pre></div>
+<p>It's a <code>POST</code> with <code>Content-Type: application/json</code> and no authentication header —
+if your endpoint needs a credential, put it in the URL (a signed path or query
+token) or terminate the request behind a proxy that adds the header.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">notifications</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">generic</span><span class="p">:</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">webhookUrl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://my-system.example.com/kubesentry&quot;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="c1"># or: existingSecret: &quot;kubesentry-generic&quot;   # key: generic-webhook-url</span>
+</code></pre></div>
+<h3 id="microsoft-teams-two-things-to-know">Microsoft Teams — two things to know<a class="headerlink" href="#microsoft-teams-two-things-to-know" title="Permanent link">&para;</a></h3>
+<p>Teams works, and it's enabled the same way as the others. Two caveats worth
+knowing before you pick it as your main channel.</p>
+<p><strong>1. Teams cards don't carry the remediation steps.</strong> Every other channel
+includes the triage and fix guidance attached to the rule; the Teams card carries
+the rule, severity, workload fields, and the raw Falco output, but stops there.
+You'll get the alert and know where it happened — you'll go to the dashboard for
+what to run.</p>
+<p><strong>2. Microsoft is retiring the webhook type KubeSentry posts to.</strong> KubeSentry
+sends a <strong>MessageCard</strong>, the format Office 365 incoming webhook connectors
+accept. Microsoft is replacing those connectors with Power Automate
+<strong>Workflows</strong>, whose URLs expect a different payload — a MessageCard sent to a
+Workflows URL won't render as a card unless the flow is built to parse one.</p>
+<p>If either matters to you, the <a href="#generic-webhook">generic webhook</a> is the better
+route into Teams: point it at a Workflow you author yourself and you get the
+<strong>complete</strong> alert as JSON, remediation included, in whatever card format you
+want. It also sidesteps the connector deprecation entirely, since you own both
+ends.</p>
+<h3 id="wiring-a-channel-from-the-cli">Wiring a channel from the CLI<a class="headerlink" href="#wiring-a-channel-from-the-cli" title="Permanent link">&para;</a></h3>
+<p>If you'd rather not put credentials in a values file at all, create the Secret
+yourself and point the chart at it. Reading the value with <code>read -rs</code> keeps it
+out of your shell history and off the process list.</p>
+<p><strong>Slack:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">read</span><span class="w"> </span>-rs<span class="w"> </span>SLACK_URL
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>kubesentry-slack<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span>--from-literal<span class="o">=</span>slack-webhook-url<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SLACK_URL</span><span class="s2">&quot;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nb">unset</span><span class="w"> </span>SLACK_URL
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>helm<span class="w"> </span>upgrade<span class="w"> </span>&lt;release&gt;<span class="w"> </span>kubesentry/kubesentry<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span>--reuse-values<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span>--set<span class="w"> </span>notifications.slack.enabled<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span>--set<span class="w"> </span>notifications.slack.existingSecret<span class="o">=</span>kubesentry-slack
+</code></pre></div>
+<p><strong>Discord</strong> and <strong>Teams</strong> are identical — swap the channel name and the Secret
+key (<code>discord-webhook-url</code>, <code>teams-webhook-url</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">read</span><span class="w"> </span>-rs<span class="w"> </span>DISCORD_URL
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>kubesentry-discord<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span>--from-literal<span class="o">=</span>discord-webhook-url<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$DISCORD_URL</span><span class="s2">&quot;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nb">unset</span><span class="w"> </span>DISCORD_URL
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>helm<span class="w"> </span>upgrade<span class="w"> </span>&lt;release&gt;<span class="w"> </span>kubesentry/kubesentry<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span>--reuse-values<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">  </span>--set<span class="w"> </span>notifications.discord.enabled<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">  </span>--set<span class="w"> </span>notifications.discord.existingSecret<span class="o">=</span>kubesentry-discord
+</code></pre></div>
+<p><strong>Generic webhook</strong> — same shape, key <code>generic-webhook-url</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">read</span><span class="w"> </span>-rs<span class="w"> </span>GENERIC_URL
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>kubesentry-generic<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span>--from-literal<span class="o">=</span>generic-webhook-url<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$GENERIC_URL</span><span class="s2">&quot;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nb">unset</span><span class="w"> </span>GENERIC_URL
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>helm<span class="w"> </span>upgrade<span class="w"> </span>&lt;release&gt;<span class="w"> </span>kubesentry/kubesentry<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span>--reuse-values<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span>--set<span class="w"> </span>notifications.generic.enabled<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">  </span>--set<span class="w"> </span>notifications.generic.existingSecret<span class="o">=</span>kubesentry-generic
+</code></pre></div>
+<p><strong>Email</strong> needs the API key in a Secret plus two plain values — the verified
+sender and the recipient list:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">read</span><span class="w"> </span>-rs<span class="w"> </span>RESEND_KEY
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>kubesentry-email<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span>--from-literal<span class="o">=</span>resend-api-key<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$RESEND_KEY</span><span class="s2">&quot;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nb">unset</span><span class="w"> </span>RESEND_KEY
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>helm<span class="w"> </span>upgrade<span class="w"> </span>&lt;release&gt;<span class="w"> </span>kubesentry/kubesentry<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span>--reuse-values<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span>--set<span class="w"> </span>notifications.email.enabled<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">  </span>--set<span class="w"> </span>notifications.email.existingSecret<span class="o">=</span>kubesentry-email<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">  </span>--set<span class="w"> </span>notifications.email.from<span class="o">=</span>alerts@yourdomain.com<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">  </span>--set<span class="w"> </span><span class="s1">&#39;notifications.email.to={you@yourdomain.com,security@yourdomain.com}&#39;</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title"><code>to</code> is a list</p>
+<p>Note the braces: <code>--set 'notifications.email.to={a@x.com,b@x.com}'</code> is how
+Helm sets an array on the command line. Quote the whole argument so your
+shell doesn't try to expand the braces.</p>
+</div>
+<p><code>&lt;release&gt;</code> is whatever you named the Helm release — any name works, the
+collector's Service name is pinned. <code>--reuse-values</code> keeps the rest of your
+configuration as it is; without it, unspecified values fall back to chart
+defaults.</p>
 <h2 id="daily-digest">Daily digest<a class="headerlink" href="#daily-digest" title="Permanent link">&para;</a></h2>
-<p>A once-a-day summary email of the last 24 hours. Enabled by default at 09:00 UTC; it uses the same email channel configured above.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">digest</span><span class="p">:</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0</span><span class="nv"> </span><span class="s">9</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*&quot;</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;UTC&quot;</span><span class="w">        </span><span class="c1"># e.g. &quot;Europe/Zagreb&quot;</span>
+<p>A once-a-day summary of the last 24 hours, with a comparison against the previous
+day. Enabled by default at 09:00 UTC.</p>
+<p>The digest is <strong>email only</strong> — it uses the email channel configured above and is
+never sent to Slack, Discord, or Teams. If email isn't configured, no digest goes
+out regardless of this setting.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">digest</span><span class="p">:</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0</span><span class="nv"> </span><span class="s">9</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*&quot;</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;UTC&quot;</span><span class="w">        </span><span class="c1"># e.g. &quot;Europe/Zagreb&quot;</span>
 </code></pre></div>
 <h2 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">&para;</a></h2>
 <p>Alert history is written to a PersistentVolume so it survives pod restarts and reinstalls.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">collector</span><span class="p">:</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">persistence</span><span class="p">:</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="nt">storageClass</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">     </span><span class="c1"># empty = cluster default</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">collector</span><span class="p">:</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nt">persistence</span><span class="p">:</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="nt">storageClass</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">     </span><span class="c1"># empty = cluster default</span>
 </code></pre></div>
 <p>The collector stores events in an embedded SQLite database on this volume. For most small teams the default size is plenty; increase it if you retain a lot of history.</p>
 <h2 id="dashboard-exposure">Dashboard exposure<a class="headerlink" href="#dashboard-exposure" title="Permanent link">&para;</a></h2>
 <p>By default the dashboard Service is <code>ClusterIP</code> — reachable only in-cluster. The dashboard has <strong>no built-in authentication</strong>, so never expose it directly to the internet.</p>
 <p>To make it reachable, front it with your own ingress or reverse proxy <strong>with authentication</strong> (e.g. an OAuth proxy or basic-auth annotations on your ingress controller), pointing at the <code>kubesentry-collector</code> Service on port <code>8080</code>. So links in emails and webhooks use the right address, set the public URL:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">dashboard</span><span class="p">:</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://kubesentry.internal.your-domain.com/dashboard&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">dashboard</span><span class="p">:</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://kubesentry.internal.your-domain.com/dashboard&quot;</span>
 </code></pre></div>
 <h2 id="resource-requests">Resource requests<a class="headerlink" href="#resource-requests" title="Permanent link">&para;</a></h2>
 <p>The collector is lightweight (the image is a ~15 MB distroless build). Falco is the heavier component since it runs on every node. Defaults are sensible for small clusters; tune if needed:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">collector</span><span class="p">:</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100m</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128Mi</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="nt">limits</span><span class="p">:</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500m</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512Mi</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">collector</span><span class="p">:</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100m</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128Mi</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="nt">limits</span><span class="p">:</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500m</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512Mi</span>
 </code></pre></div>
 <h2 id="cluster-identity">Cluster identity<a class="headerlink" href="#cluster-identity" title="Permanent link">&para;</a></h2>
 <p>Name shown in the dashboard top bar, email subjects, and webhook payloads:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">cluster</span><span class="p">:</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;prod-us-east&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">cluster</span><span class="p">:</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;prod-us-east&quot;</span>
 </code></pre></div>
 <h2 id="tuning-detection-noise">Tuning detection noise<a class="headerlink" href="#tuning-detection-noise" title="Permanent link">&para;</a></h2>
 <p>Every cluster has legitimate activity that looks suspicious to default rules (init scripts, debugging, CI jobs). Falco rules are customizable — add exceptions or custom rules through the <code>falco</code> values block in the chart. See the <a href="https://falco.org/docs/rules/">Falco rules documentation</a> for rule syntax.</p>
 <h2 id="applying-changes">Applying changes<a class="headerlink" href="#applying-changes" title="Permanent link">&para;</a></h2>
 <p>Any config change is applied the same way:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>helm<span class="w"> </span>upgrade<span class="w"> </span>kubesentry<span class="w"> </span>kubesentry/kubesentry<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span>-f<span class="w"> </span>values.yaml
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>helm<span class="w"> </span>upgrade<span class="w"> </span>kubesentry<span class="w"> </span>kubesentry/kubesentry<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span>-f<span class="w"> </span>values.yaml
 </code></pre></div>
 <p>Pods roll automatically. Alert history on the PVC is preserved across upgrades.</p>
 

@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://docs.kubesentry.io/getting-started/installation/">
+        <link rel="canonical" href="https://docs.kubesentry.io/detections/">
       
       
-        <link rel="prev" href="../..">
+        <link rel="prev" href="../getting-started/verify/">
       
       
-        <link rel="next" href="../quickstart/">
+        <link rel="next" href="../configuration/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>Installation - KubeSentry Docs</title>
+        <title>What KubeSentry detects - KubeSentry Docs</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,7 +53,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installation" class="md-skip">
+        <a href="#what-kubesentry-detects" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +94,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="KubeSentry Docs" class="md-header__button md-logo" aria-label="KubeSentry Docs" data-md-component="logo">
+    <a href=".." title="KubeSentry Docs" class="md-header__button md-logo" aria-label="KubeSentry Docs" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Installation
+              What KubeSentry detects
             
           </span>
         </div>
@@ -232,7 +232,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="KubeSentry Docs" class="md-nav__button md-logo" aria-label="KubeSentry Docs" data-md-component="logo">
+    <a href=".." title="KubeSentry Docs" class="md-nav__button md-logo" aria-label="KubeSentry Docs" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -262,7 +262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -286,8 +286,6 @@
       
   
   
-    
-  
   
   
     
@@ -300,11 +298,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
@@ -325,7 +323,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -340,37 +338,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Installation
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../getting-started/installation/" class="md-nav__link">
         
   
   
@@ -386,109 +357,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Prerequisites">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#supported-clusters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Supported clusters
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#add-the-helm-repository" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Add the Helm repository
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Install
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verify-the-install" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Verify the install
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#access-the-dashboard" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Access the dashboard
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#uninstall" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Uninstall
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -501,7 +369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../quickstart/" class="md-nav__link">
+      <a href="../getting-started/quickstart/" class="md-nav__link">
         
   
   
@@ -529,7 +397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../verify/" class="md-nav__link">
+      <a href="../getting-started/verify/" class="md-nav__link">
         
   
   
@@ -561,10 +429,37 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../detections/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What KubeSentry detects
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -580,6 +475,109 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-severity-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How severity works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubesentry-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KubeSentry rules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KubeSentry rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trying-them-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trying them out
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuning-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuning overrides
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#falco-rules-kept-as-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Falco rules kept as-is
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remediation-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remediation guidance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-your-own-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding your own rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -591,7 +589,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../configuration/" class="md-nav__link">
+      <a href="../configuration/" class="md-nav__link">
         
   
   
@@ -618,7 +616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../licensing/" class="md-nav__link">
+      <a href="../licensing/" class="md-nav__link">
         
   
   
@@ -645,7 +643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -672,7 +670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/" class="md-nav__link">
+      <a href="../troubleshooting/" class="md-nav__link">
         
   
   
@@ -719,22 +717,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#how-severity-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
+        How severity works
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Prerequisites">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubesentry-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KubeSentry rules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KubeSentry rules">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#supported-clusters" class="md-nav__link">
+  <a href="#trying-them-out" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Supported clusters
+        Trying them out
       
     </span>
   </a>
@@ -747,10 +756,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#add-the-helm-repository" class="md-nav__link">
+  <a href="#tuning-overrides" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Add the Helm repository
+        Tuning overrides
       
     </span>
   </a>
@@ -758,10 +767,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#falco-rules-kept-as-is" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Install
+        Falco rules kept as-is
       
     </span>
   </a>
@@ -769,10 +778,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#verify-the-install" class="md-nav__link">
+  <a href="#remediation-guidance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Verify the install
+        Remediation guidance
       
     </span>
   </a>
@@ -780,21 +789,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#access-the-dashboard" class="md-nav__link">
+  <a href="#adding-your-own-rules" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Access the dashboard
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#uninstall" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Uninstall
+        Adding your own rules
       
     </span>
   </a>
@@ -818,7 +816,7 @@
 
 
   
-    <a href="https://github.com/kubesentry/kubesentry-collector/edit/main/website/docs/getting-started/installation.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/kubesentry/kubesentry-collector/edit/main/website/docs/detections.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -826,62 +824,258 @@
   
 
 
-<h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
-<p>KubeSentry installs with a single Helm chart. The chart deploys Falco as a DaemonSet (one pod per node) and the KubeSentry collector as a Deployment.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<ul>
-<li>A <strong>standard</strong> Kubernetes cluster (v1.24+ recommended) whose nodes allow privileged pods and hostPath mounts</li>
-<li><a href="https://helm.sh">Helm</a> 3.8 or newer</li>
-<li>Nodes running a Linux kernel Falco supports — the chart uses Falco's <code>modern_ebpf</code> driver by default, which works on modern kernels</li>
-<li>A namespace you're comfortable running privileged detection in (Falco needs privileged access to read kernel events)</li>
-</ul>
-<h3 id="supported-clusters">Supported clusters<a class="headerlink" href="#supported-clusters" title="Permanent link">&para;</a></h3>
-<p>KubeSentry detects threats by reading kernel events, so Falco runs as a privileged DaemonSet with host mounts (the container runtime socket, <code>/proc</code>, <code>/etc</code>). Any cluster that permits that will work:</p>
-<ul>
-<li>Self-managed and kubeadm clusters</li>
-<li>k3s</li>
-<li>GKE <strong>Standard</strong></li>
-<li>EKS, and AKS with default node pools</li>
-<li>kind and minikube (great for evaluating)</li>
-</ul>
-<p><strong>Not supported:</strong> GKE <strong>Autopilot</strong>, and other managed or hardened environments that block privileged containers and host mounts — including restrictive PodSecurity or Pod Security Admission policies. These platforms deny kernel-level access by design, and it isn't something the chart can configure around. If you're on Autopilot, run KubeSentry on a Standard cluster or a node pool that permits privileged workloads.</p>
-<h2 id="add-the-helm-repository">Add the Helm repository<a class="headerlink" href="#add-the-helm-repository" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>kubesentry<span class="w"> </span>https://charts.kubesentry.io
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>helm<span class="w"> </span>repo<span class="w"> </span>update
+<h1 id="what-kubesentry-detects">What KubeSentry detects<a class="headerlink" href="#what-kubesentry-detects" title="Permanent link">&para;</a></h1>
+<p>KubeSentry runs two layers of rules:</p>
+<ol>
+<li><strong>Falco's stable ruleset</strong> (25 rules, pulled as <code>falco-rules:4</code>) — the
+   upstream detections, kept as-is.</li>
+<li><strong>The KubeSentry layer</strong> — 11 custom rules written for Kubernetes workloads,
+   plus 3 tuning overrides that reshape Falco defaults rather than replacing
+   them, so upstream improvements keep flowing.</li>
+</ol>
+<p>Falco's <em>incubating</em> and <em>sandbox</em> rulesets are deliberately <strong>not</strong> loaded. They
+carry the bulk of upstream's false positives, and a security tool people learn to
+ignore is worse than no security tool.</p>
+<h2 id="how-severity-works">How severity works<a class="headerlink" href="#how-severity-works" title="Permanent link">&para;</a></h2>
+<p>Rules declare a Falco priority. The dashboard collapses those into three
+buckets, and only the top bucket pages you:</p>
+<table>
+<thead>
+<tr>
+<th>Falco priority</th>
+<th>Dashboard severity</th>
+<th>Instant notification?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CRITICAL</code>, <code>EMERGENCY</code>, <code>ALERT</code></td>
+<td><strong>Critical</strong></td>
+<td>Yes — every configured channel</td>
+</tr>
+<tr>
+<td><code>ERROR</code>, <code>WARNING</code></td>
+<td><strong>High</strong></td>
+<td>No — dashboard + daily digest</td>
+</tr>
+<tr>
+<td><code>NOTICE</code>, <code>INFORMATIONAL</code>, <code>DEBUG</code></td>
+<td><strong>Warning</strong></td>
+<td>No — dashboard + daily digest</td>
+</tr>
+</tbody>
+</table>
+<p>This is why a High-severity alert doesn't hit your inbox: paging on everything is
+how alerting dies. If you want to test notification delivery, use a Critical
+trigger from the table below.</p>
+<h2 id="kubesentry-rules">KubeSentry rules<a class="headerlink" href="#kubesentry-rules" title="Permanent link">&para;</a></h2>
+<p>All 11 carry remediation guidance — what it means, how to triage, what to run.</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Severity</th>
+<th>What it catches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Crypto miner process</td>
+<td>Critical</td>
+<td>Known miner binaries by name or resolved path, stratum pool URLs, and monero/randomx algo flags</td>
+</tr>
+<tr>
+<td>Sudoers or passwd modified in container</td>
+<td>Critical</td>
+<td>Writes to <code>/etc/passwd</code>, <code>/etc/shadow</code>, <code>/etc/sudoers</code>, <code>/etc/sudoers.d/*</code></td>
+</tr>
+<tr>
+<td>Curl or wget piped to shell</td>
+<td>Critical</td>
+<td>The <code>curl … \| sh</code> remote-install pattern</td>
+</tr>
+<tr>
+<td>Binary executed from tmp</td>
+<td>Critical</td>
+<td>Execution out of <code>/tmp</code> or <code>/dev/shm</code> — the classic drop-and-run</td>
+</tr>
+<tr>
+<td>New cron job in container</td>
+<td>High</td>
+<td>Writes under <code>/etc/cron*</code> — persistence</td>
+</tr>
+<tr>
+<td>SSH binary executed in container</td>
+<td>High</td>
+<td><code>ssh</code>, <code>sshd</code>, <code>scp</code>, <code>sftp</code> running inside a container</td>
+</tr>
+<tr>
+<td>Outbound connection to suspicious port</td>
+<td>High</td>
+<td>TCP out of the cluster on 3333/4444/5555/14444 (mining pools, C2)</td>
+</tr>
+<tr>
+<td>Package manager run in container</td>
+<td>High</td>
+<td><code>apt</code>, <code>apk</code>, <code>pip</code>, <code>npm</code>, … at runtime — image drift</td>
+</tr>
+<tr>
+<td>Kubectl execution from inside pod</td>
+<td>High</td>
+<td><code>kubectl</code> inside a pod — API pivot. GitOps operators excluded</td>
+</tr>
+<tr>
+<td>Process running with NET_ADMIN capability</td>
+<td>High</td>
+<td>A workload holding <code>CAP_NET_ADMIN</code>, which isn't granted by default</td>
+</tr>
+<tr>
+<td>Container running as root with sensitive mount</td>
+<td>High</td>
+<td>Containers mounting the runtime socket, the kubelet root, or host <code>/</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="trying-them-out">Trying them out<a class="headerlink" href="#trying-them-out" title="Permanent link">&para;</a></h3>
+<p>These run against the throwaway <code>victim</code> pod from
+<a href="../getting-started/verify/">Verify your installation</a>. The first is the one to
+use if you want a dependable test — it's the trigger the verification walkthrough
+is built on:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Critical — writes to a sensitive auth file</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>victim<span class="w"> </span>--<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;echo x &gt;&gt; /etc/passwd&quot;</span>
 </code></pre></div>
-<p>Confirm the chart is available:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>helm<span class="w"> </span>search<span class="w"> </span>repo<span class="w"> </span>kubesentry
+<p>These three match their rule's conditions and should fire, though exactly what a
+given image does at exec time varies — treat them as starting points rather than
+guarantees:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Critical — curl-pipe-shell pattern (fetches nothing; the pattern is the signal)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>victim<span class="w"> </span>--<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;curl http://127.0.0.1/install.sh | sh&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># High — cron persistence</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>victim<span class="w"> </span>--<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;echo &#39;* * * * * root id&#39; &gt;&gt; /etc/crontab&quot;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># High — package manager at runtime</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>victim<span class="w"> </span>--<span class="w"> </span>apt-get<span class="w"> </span>--version
 </code></pre></div>
-<p>You'll see the chart listed as <code>kubesentry/kubesentry</code>.</p>
-<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
+<p>Crypto mining and <code>/tmp</code> execution need a binary that actually runs, so they get
+their own throwaway pod:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kubectl<span class="w"> </span>run<span class="w"> </span>kskmine<span class="w"> </span>--image<span class="o">=</span>debian:stable-slim<span class="w"> </span>--rm<span class="w"> </span>-i<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>--<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;cp /bin/sleep /tmp/xmrig &amp;&amp; /tmp/xmrig 5&quot;</span>
+</code></pre></div>
+<p>That copies a harmless binary to <code>/tmp/xmrig</code> and runs it, firing both the miner
+rule and the tmp-execution rule.</p>
 <div class="admonition note">
-<p class="admonition-title">Any release name works</p>
-<p>The collector's Service name is pinned to <code>kubesentry-collector</code> (the chart sets <code>fullnameOverride: kubesentry</code>), so Falco can always reach the collector no matter what you name the release. These examples use <code>kubesentry</code>. Only override <code>fullnameOverride</code> if you need to run two installs in one namespace — then also point <code>falco.falcosidekick.config.webhook.address</code> at your collector Service.</p>
+<p class="admonition-title">Use a real distro image</p>
+<p>The miner example uses <code>debian:stable-slim</code> rather than <code>alpine</code> on purpose.
+BusyBox invoked under another name exits with "applet not found" before it
+really execs, so the process never appears with the name the rule matches.</p>
 </div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>helm<span class="w"> </span>install<span class="w"> </span>kubesentry<span class="w"> </span>kubesentry/kubesentry<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>--namespace<span class="w"> </span>kubesentry<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>--create-namespace
-</code></pre></div>
-<p>That's it. Without a license, KubeSentry starts in a <strong>7-day trial</strong> with a yellow banner in the dashboard — full functionality, no restrictions. See <a href="../../licensing/">Licensing</a> to activate a paid license.</p>
-<h2 id="verify-the-install">Verify the install<a class="headerlink" href="#verify-the-install" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kubesentry
-</code></pre></div>
-<p>You should see:</p>
-<ul>
-<li>One <code>kubesentry-falco</code> pod <strong>per node</strong> (the DaemonSet)</li>
-<li>One <code>kubesentry-falcosidekick</code> pod (routes Falco events to the collector)</li>
-<li>One <code>kubesentry-collector</code> pod (the KubeSentry Deployment: dashboard + notifier + storage)</li>
-</ul>
-<p>Wait until all pods are <code>Running</code>, then continue to the <a href="../quickstart/">Quickstart</a> to trigger your first alert.</p>
-<h2 id="access-the-dashboard">Access the dashboard<a class="headerlink" href="#access-the-dashboard" title="Permanent link">&para;</a></h2>
-<p>The dashboard is served by the collector. For a quick look, port-forward it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>kubectl<span class="w"> </span>port-forward<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span>svc/kubesentry-collector<span class="w"> </span><span class="m">8080</span>:8080
-</code></pre></div>
-<p>Then open <a href="http://localhost:8080/dashboard">http://localhost:8080/dashboard</a>. For a real deployment, put it behind your ingress with authentication — see <a href="../../configuration/#dashboard-exposure">Dashboard exposure</a>.</p>
-<h2 id="uninstall">Uninstall<a class="headerlink" href="#uninstall" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>helm<span class="w"> </span>uninstall<span class="w"> </span>kubesentry<span class="w"> </span>-n<span class="w"> </span>kubesentry
-</code></pre></div>
-<p>Alert history is stored on a PersistentVolume. Deleting the release does <strong>not</strong> delete the PVC by default, so your data survives a reinstall. Delete the PVC manually if you want a clean slate.</p>
+<p>The remaining rules — NET_ADMIN, sensitive host mounts, suspicious outbound
+ports, <code>kubectl</code> in a pod — need a purpose-built pod spec or an outbound
+connection, so there's no safe one-liner. Read their conditions in
+<a href="https://github.com/kubesentry/kubesentry-collector/blob/main/rules/kubesentry-rules.yaml"><code>rules/kubesentry-rules.yaml</code></a>.</p>
+<h2 id="tuning-overrides">Tuning overrides<a class="headerlink" href="#tuning-overrides" title="Permanent link">&para;</a></h2>
+<p>These three modify Falco defaults in place. Upstream keeps ownership of the
+detection logic; KubeSentry only adjusts scope and severity.</p>
+<table>
+<thead>
+<tr>
+<th>Falco rule</th>
+<th>What KubeSentry changes</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Read sensitive file untrusted</code></td>
+<td>Suppressed in <code>kube-system</code>, <code>kube-public</code>, <code>kube-node-lease</code>, <code>falco</code>, <code>cert-manager</code>, <code>ingress-nginx</code></td>
+<td>The kubelet and CNI read these files constantly. Fires in your namespaces, quiet in the platform's</td>
+</tr>
+<tr>
+<td><code>Drop and execute new binary in container</code></td>
+<td>Container-runtime and kubelet housekeeping excluded (<code>runc</code>, <code>containerd-shim</code>, mount helpers, platform images)</td>
+<td>Otherwise it fires on normal pod startup on most clusters</td>
+</tr>
+<tr>
+<td><code>Redirect STDOUT/STDIN to Network Connection in Container</code></td>
+<td>Priority raised <code>NOTICE</code> → <code>CRITICAL</code></td>
+<td>This catches <code>bash -i &gt;&amp; /dev/tcp/…</code> — a live reverse shell, which upstream ships two buckets too quiet</td>
+</tr>
+</tbody>
+</table>
+<h2 id="falco-rules-kept-as-is">Falco rules kept as-is<a class="headerlink" href="#falco-rules-kept-as-is" title="Permanent link">&para;</a></h2>
+<p>The stable ruleset contributes 25 detections. The ones you're most likely to
+meet:</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Drop and execute new binary in container</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>Fileless execution via <code>memfd_create</code></td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>Detect <code>release_agent</code> file container escapes</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>Read sensitive file untrusted</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Netcat remote code execution in container</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Execution from <code>/dev/shm</code></td>
+<td>High</td>
+</tr>
+<tr>
+<td>Linux kernel module injection</td>
+<td>High</td>
+</tr>
+<tr>
+<td>PTRACE attached to process</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Terminal shell in container</td>
+<td>Warning</td>
+</tr>
+<tr>
+<td>Contact K8s API server from container</td>
+<td>Warning</td>
+</tr>
+</tbody>
+</table>
+<p>Because incubating and sandbox rules aren't loaded, some things you might expect
+to alert don't — writes below binary directories, privileged container launches,
+and shell-profile modification among them. See
+<a href="../getting-started/verify/#what-wont-alert-by-design">what won't alert, by design</a>.</p>
+<h2 id="remediation-guidance">Remediation guidance<a class="headerlink" href="#remediation-guidance" title="Permanent link">&para;</a></h2>
+<p>22 rules — all 11 KubeSentry rules, the 3 overrides, and 8 more Falco
+detections — carry a guidance entry: a plain-English explanation, ordered triage
+steps, concrete remediation commands, and a MITRE ATT&amp;CK reference. It shows in
+the dashboard and travels with the alert into email, Slack, Discord, and generic
+webhooks.</p>
+<div class="admonition note">
+<p class="admonition-title">Teams cards omit remediation</p>
+<p>The Microsoft Teams payload carries the alert fields and raw Falco output but
+not the fix steps. Use the dashboard for those, or route Teams through a
+<a href="../configuration/#microsoft-teams-two-things-to-know">generic webhook</a> to get
+the complete alert.</p>
+</div>
+<h2 id="adding-your-own-rules">Adding your own rules<a class="headerlink" href="#adding-your-own-rules" title="Permanent link">&para;</a></h2>
+<p>The curated set is a starting point, not a ceiling. Add your own Falco rules
+through the <code>falco</code> values block — see
+<a href="../configuration/#tuning-detection-noise">Tuning detection noise</a>.</p>
 
 
 
@@ -964,10 +1158,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top", "content.code.copy", "content.action.edit", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top", "content.code.copy", "content.action.edit", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
