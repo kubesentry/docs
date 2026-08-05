@@ -576,6 +576,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Activate your license">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-time-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First-time install
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrading-an-existing-trial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upgrading an existing trial
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -719,6 +747,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Activate your license">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-time-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First-time install
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrading-an-existing-trial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upgrading an existing trial
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -817,20 +873,37 @@ The collector is <a href="https://github.com/kubesentry">open to read</a> if you
 </div>
 <p>Purchase from the <a href="https://kubesentry.io">KubeSentry site</a>. Checkout is handled through Lemon Squeezy; your license is emailed to you automatically right after purchase.</p>
 <h2 id="activate-your-license">Activate your license<a class="headerlink" href="#activate-your-license" title="Permanent link">&para;</a></h2>
-<p>Your license arrives by email as a token string. It goes in the <strong>top-level <code>license</code></strong> value — apply it and upgrade:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">read</span><span class="w"> </span>-rs<span class="w"> </span>KS_LICENSE
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>helm<span class="w"> </span>upgrade<span class="w"> </span>&lt;release&gt;<span class="w"> </span>kubesentry/kubesentry<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span>--reuse-values<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>--set-string<span class="w"> </span><span class="nv">license</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$KS_LICENSE</span><span class="s2">&quot;</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">unset</span><span class="w"> </span>KS_LICENSE
+<p>Your license arrives by email as a token string. It goes in the <strong>top-level <code>license</code></strong> value. Which command you run depends on whether KubeSentry is already in the cluster.</p>
+<p>In both paths, <code>read -rs</code> takes the token without echoing it or leaving it in your shell history, and <code>--set-string</code> stops Helm from trying to interpret the token as anything other than a string.</p>
+<h3 id="first-time-install">First-time install<a class="headerlink" href="#first-time-install" title="Permanent link">&para;</a></h3>
+<p>New to KubeSentry? This adds the chart repo and installs it with your license — no trial period, licensed from the first pod.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>kubesentry<span class="w"> </span>https://charts.kubesentry.io
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>helm<span class="w"> </span>repo<span class="w"> </span>update
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">read</span><span class="w"> </span>-rs<span class="w"> </span>KS_LICENSE
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>helm<span class="w"> </span>install<span class="w"> </span>kubesentry<span class="w"> </span>kubesentry/kubesentry<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span>--namespace<span class="w"> </span>kubesentry<span class="w"> </span>--create-namespace<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span>--set-string<span class="w"> </span><span class="nv">license</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$KS_LICENSE</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span>--set<span class="w"> </span>cluster.name<span class="o">=</span><span class="s2">&quot;prod-us-east&quot;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">unset</span><span class="w"> </span>KS_LICENSE
 </code></pre></div>
-<p><code>read -rs</code> takes the token without echoing it or leaving it in your shell history. <code>&lt;release&gt;</code> is whatever you named the release — any name works. <code>--reuse-values</code> preserves the rest of your configuration; <code>--set-string</code> stops Helm from trying to interpret the token as anything other than a string.</p>
+<p>Replace <code>prod-us-east</code> with a name for this cluster — it's shown in the dashboard top bar, email subjects, and webhook payloads. Omitting it defaults to <code>default</code>. See <a href="../configuration/">Configuration</a> for the rest of the values.</p>
+<h3 id="upgrading-an-existing-trial">Upgrading an existing trial<a class="headerlink" href="#upgrading-an-existing-trial" title="Permanent link">&para;</a></h3>
+<p>Already ran the trial? This keeps your existing configuration and just activates your paid license:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">read</span><span class="w"> </span>-rs<span class="w"> </span>KS_LICENSE
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>helm<span class="w"> </span>upgrade<span class="w"> </span>&lt;release&gt;<span class="w"> </span>kubesentry/kubesentry<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span>--reuse-values<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span>--set-string<span class="w"> </span><span class="nv">license</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$KS_LICENSE</span><span class="s2">&quot;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">unset</span><span class="w"> </span>KS_LICENSE
+</code></pre></div>
+<p><code>&lt;release&gt;</code> is whatever you named the release — any name works. <code>--reuse-values</code> is what preserves the rest of your setup: notification channels, <code>cluster.name</code>, resource limits. Drop it and Helm resets every unspecified value to the chart default, which silently disables email and puts the trial banner back. For the same reason, don't re-pass <code>--set cluster.name</code> here — <code>--reuse-values</code> already carries the name you chose during the trial.</p>
 <p>The chart stores the token in a Kubernetes Secret automatically and mounts it into the collector — it's never kept as a plain-text env value.</p>
 <div class="admonition warning">
 <p class="admonition-title">If you use <code>--set-file</code>, strip the trailing newline</p>
 <p><code>--set-file license=./license.txt</code> sends the file <strong>byte for byte</strong>, including the newline most editors add at the end. The collector doesn't trim whitespace, so that newline makes an otherwise valid token fail signature verification and silently drop you back to trial behaviour. Write the file without one:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;%s&#39;</span><span class="w"> </span><span class="s2">&quot;&lt;your-license-token&gt;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>license.txt
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>helm<span class="w"> </span>upgrade<span class="w"> </span>&lt;release&gt;<span class="w"> </span>kubesentry/kubesentry<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span>--reuse-values<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span>--set-file<span class="w"> </span><span class="nv">license</span><span class="o">=</span>./license.txt
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;%s&#39;</span><span class="w"> </span><span class="s2">&quot;&lt;your-license-token&gt;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>license.txt
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>helm<span class="w"> </span>upgrade<span class="w"> </span>&lt;release&gt;<span class="w"> </span>kubesentry/kubesentry<span class="w"> </span>-n<span class="w"> </span>kubesentry<span class="w"> </span>--reuse-values<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>--set-file<span class="w"> </span><span class="nv">license</span><span class="o">=</span>./license.txt
 </code></pre></div>
 </div>
 <p>After the upgrade rolls, reload the dashboard — the trial banner disappears and your plan is shown. Any alerts collected during the trial are preserved.</p>
